@@ -59,7 +59,7 @@ static unsigned char RF_Header[4] = {'O','L','R','S'};
 //Serial control command is ; 'S'+ chr(channel number) + chr(position / 256) + chr(position % 256) 
 // 0 = PPM
 // 1 = Serial
-#define CONTROL_TYPE 1
+#define CONTROL_TYPE 0
 
 
 //###### TELEMETRY MODES ########
