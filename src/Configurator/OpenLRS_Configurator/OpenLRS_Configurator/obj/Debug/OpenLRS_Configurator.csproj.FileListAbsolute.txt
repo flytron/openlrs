@@ -1,0 +1,8 @@
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\bin\Debug\OpenLRS_Configurator.exe
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\bin\Debug\OpenLRS_Configurator.pdb
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\ResolveAssemblyReference.cache
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.Form1.resources
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.Properties.Resources.resources
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.csproj.GenerateResource.Cache
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.exe
+D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.pdb
