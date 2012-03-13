@@ -6,3 +6,11 @@ D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurat
 D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.csproj.GenerateResource.Cache
 D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.exe
 D:\FLYTRON_Products\OpenLRS\Configurator\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.pdb
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\bin\Debug\OpenLRS_Configurator.exe
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\bin\Debug\OpenLRS_Configurator.pdb
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\ResolveAssemblyReference.cache
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.Form1.resources
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.Properties.Resources.resources
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.csproj.GenerateResource.Cache
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.exe
+D:\Repos\OpenLRS\trunk\src\OpenLRS_Configurator\OpenLRS_Configurator\obj\Debug\OpenLRS_Configurator.pdb
