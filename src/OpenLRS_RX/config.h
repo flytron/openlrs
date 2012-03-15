@@ -58,7 +58,10 @@ static unsigned char RF_Header[4] = {'O','L','R','S'};
 #define TELEMETRY_MODE 0 // 0 = Transparent Bridge(750 byte/second max.) // 1 = Standard OpenLRS Telemetry // 2 = WARBIRD Mode
 
 
-
+//###### SPECTRUM ANALYZER MODE ########
+// the receiver scans the whole band's signal level to finding interferences.
+// It works in a dead loop with this mode. other rx functions disables.
+#define SPECTRUM_ANALYZER_ENABLED 0  // 1 = Enabled  0 = Disabled
 
 
 //###### RSSI MODES ########

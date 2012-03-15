@@ -369,12 +369,25 @@ void to_sleep_mode(void)
 //--------------------------------------------------------------   
   
 void frequency_configurator(long frequency){
-
-  // frequency formulation from Si4432 chip's datasheet
+  
+    // frequency formulation from Si4432 chip's datasheet
   // original formulation is working with mHz values and floating numbers, I replaced them with kHz values.
+  
+  unsigned int frequency_constant = 19000;//default 430-440Mhz
+  
+  if ((frequency>=400000) && (frequency<410000))  frequency_constant = 16000; // 16 for 400–409.9 MHz band from datasheet
+  if ((frequency>=410000) && (frequency<420000))  frequency_constant = 17000; // 17 for 410–419.9 MHz band from datasheet
+  if ((frequency>=420000) && (frequency<430000))  frequency_constant = 18000; // 18 for 420–429.9 MHz band from datasheet
+  if ((frequency>=430000) && (frequency<440000))  frequency_constant = 19000; // 19 for 430–439.9 MHz band from datasheet
+  if ((frequency>=440000) && (frequency<450000))  frequency_constant = 20000; // 20 for 440–449.9 MHz band from datasheet
+  if ((frequency>=450000) && (frequency<460000))  frequency_constant = 21000; // 21 for 450–459.9 MHz band from datasheet
+  if ((frequency>=460000) && (frequency<470000))  frequency_constant = 22000; // 22 for 460–469.9 MHz band from datasheet
+
   frequency = frequency / 10;
   frequency = frequency - 24000;
-  frequency = frequency - 19000; // 19 for 430–439.9 MHz band from datasheet
+  
+  frequency =  frequency - frequency_constant;  
+  
   frequency = frequency * 64; // this is the Nominal Carrier Frequency (fc) value for register setting
   
   byte byte0 = (byte) frequency;

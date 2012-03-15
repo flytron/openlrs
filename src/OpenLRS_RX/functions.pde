@@ -86,6 +86,29 @@ void Hopping(void)
     }
 #endif
 
+//############# SPECTRUM ANALYZER FUNCTIONS #################
+#if (SPECTRUM_ANALYZER_ENABLED==1)
+void Spectrum_Analyzer(void)
+    {
+      long frequency = 400000;
+      byte RSSI_value = 0;
+      Serial.end();
+      Serial.begin(115200); 
+      while(1)
+      {
+        frequency_configurator(frequency);
+        //delay(1);
+        RSSI_value = _spi_read(0x26); // Read the RSSI value
+        Serial.print(frequency);
+        Serial.print(":");
+        Serial.println(RSSI_value,DEC);
+        frequency += 1;
+        if (frequency>=470000) frequency = 400000;
+      }
+      
+    }
+#endif
+
 void Direct_Servo_Drive(void)
     {
     Servo_Position[AILERON] = Servo_Buffer[AILERON];  

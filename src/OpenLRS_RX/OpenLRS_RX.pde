@@ -242,6 +242,11 @@ void loop() {
   sei();
 
 
+   #if (SPECTRUM_ANALYZER_ENABLED==1)
+        Spectrum_Analyzer();
+   #endif
+
+
   //Hop to first frequency from Carrier
   #if (FREQUENCY_HOPPING==1)
     Hopping();
