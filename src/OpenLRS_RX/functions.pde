@@ -94,16 +94,35 @@ void Spectrum_Analyzer(void)
       byte RSSI_value = 0;
       Serial.end();
       Serial.begin(115200); 
+      Serial.write(0xFF);
       while(1)
       {
         frequency_configurator(frequency);
         //delay(1);
-        RSSI_value = _spi_read(0x26); // Read the RSSI value
-        Serial.print(frequency);
-        Serial.print(":");
-        Serial.println(RSSI_value,DEC);
-        frequency += 1;
-        if (frequency>=470000) frequency = 400000;
+        //delayMicroseconds(250);
+        
+        byte rssi_max = 0;
+        for (unsigned int j =0; j < 10; j++) {
+                               Rx_RSSI = _spi_read(0x26); // Read the RSSI value     
+                               
+                              if (rssi_max < Rx_RSSI) {
+                               rssi_max = Rx_RSSI; 
+                              }                              
+                               rx_reset();
+                               delayMicroseconds(250);
+                             }
+        RSSI_value = rssi_max;
+        //RSSI_value = _spi_read(0x26); // Read the RSSI value
+        //Serial.print(frequency);
+        //Serial.print(":");
+        //Serial.println(RSSI_value,DEC);
+        Serial.write(RSSI_value);
+        frequency += 100;
+        if (frequency>=470000) 
+           {
+             frequency = 400000;
+             Serial.write(0xFF);
+           }  
       }
       
     }

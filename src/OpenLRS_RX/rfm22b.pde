@@ -375,24 +375,26 @@ void frequency_configurator(long frequency){
   
   unsigned int frequency_constant = 19000;//default 430-440Mhz
   
-  if ((frequency>=400000) && (frequency<410000))  frequency_constant = 16000; // 16 for 400–409.9 MHz band from datasheet
-  if ((frequency>=410000) && (frequency<420000))  frequency_constant = 17000; // 17 for 410–419.9 MHz band from datasheet
-  if ((frequency>=420000) && (frequency<430000))  frequency_constant = 18000; // 18 for 420–429.9 MHz band from datasheet
-  if ((frequency>=430000) && (frequency<440000))  frequency_constant = 19000; // 19 for 430–439.9 MHz band from datasheet
-  if ((frequency>=440000) && (frequency<450000))  frequency_constant = 20000; // 20 for 440–449.9 MHz band from datasheet
-  if ((frequency>=450000) && (frequency<460000))  frequency_constant = 21000; // 21 for 450–459.9 MHz band from datasheet
-  if ((frequency>=460000) && (frequency<470000))  frequency_constant = 22000; // 22 for 460–469.9 MHz band from datasheet
+  if ((frequency>=400000) && (frequency<410000))  frequency_constant = 16; // 16 for 400–409.9 MHz band from datasheet
+  if ((frequency>=410000) && (frequency<420000))  frequency_constant = 17; // 17 for 410–419.9 MHz band from datasheet
+  if ((frequency>=420000) && (frequency<430000))  frequency_constant = 18; // 18 for 420–429.9 MHz band from datasheet
+  if ((frequency>=430000) && (frequency<440000))  frequency_constant = 19; // 19 for 430–439.9 MHz band from datasheet
+  if ((frequency>=440000) && (frequency<450000))  frequency_constant = 20; // 20 for 440–449.9 MHz band from datasheet
+  if ((frequency>=450000) && (frequency<460000))  frequency_constant = 21; // 21 for 450–459.9 MHz band from datasheet
+  if ((frequency>=460000) && (frequency<470000))  frequency_constant = 22; // 22 for 460–469.9 MHz band from datasheet
 
   frequency = frequency / 10;
   frequency = frequency - 24000;
   
-  frequency =  frequency - frequency_constant;  
+  frequency =  frequency - (frequency_constant*1000);  
   
   frequency = frequency * 64; // this is the Nominal Carrier Frequency (fc) value for register setting
   
+   
   byte byte0 = (byte) frequency;
   byte byte1 = (byte) (frequency >> 8);
   
+  _spi_write(0x75, 0x40 + frequency_constant);
   _spi_write(0x76, byte1);    
   _spi_write(0x77, byte0); 
 

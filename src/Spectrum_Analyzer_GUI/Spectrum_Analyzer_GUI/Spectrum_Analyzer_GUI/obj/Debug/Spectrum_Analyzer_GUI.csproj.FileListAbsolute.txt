@@ -1,8 +1,0 @@
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\bin\Debug\Spectrum_Analyzer_GUI.exe
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\bin\Debug\Spectrum_Analyzer_GUI.pdb
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\obj\Debug\ResolveAssemblyReference.cache
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\obj\Debug\Spectrum_Analyzer_GUI.Form1.resources
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\obj\Debug\Spectrum_Analyzer_GUI.Properties.Resources.resources
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\obj\Debug\Spectrum_Analyzer_GUI.csproj.GenerateResource.Cache
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\obj\Debug\Spectrum_Analyzer_GUI.exe
-D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\obj\Debug\Spectrum_Analyzer_GUI.pdb

@@ -1,0 +1,20 @@
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\bin\Debug\Spectrum Analyzer GUI.exe
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\bin\Debug\Spectrum Analyzer GUI.pdb
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\bin\Debug\ZedGraph.dll
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\obj\Debug\ZedGraphSample.Form1.resources
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\obj\Debug\SpectrumAnalyzerGUI.Properties.Resources.resources
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\obj\Debug\Spectrum Analyzer GUI.csproj.GenerateResource.Cache
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\obj\Debug\Spectrum Analyzer GUI.exe
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\ZedGraphSample\obj\Debug\Spectrum Analyzer GUI.pdb
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\Spectrum Analizer GUI\obj\Debug\Spectrum Analyzer GUI.exe
+C:\Users\melih\Desktop\ZedGraphSampleCS_v5.0.9\Spectrum Analizer GUI\obj\Debug\Spectrum Analyzer GUI.pdb
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\obj\Debug\ResolveAssemblyReference.cache
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\obj\Debug\ZedGraphSample.Form1.resources
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\obj\Debug\SpectrumAnalyzerGUI.Properties.Resources.resources
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\obj\Debug\Spectrum Analyzer GUI.csproj.GenerateResource.Cache
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\bin\Debug\Spectrum Analyzer GUI.exe
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\bin\Debug\Spectrum Analyzer GUI.pdb
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\bin\Debug\ZedGraph.dll
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\obj\Debug\Spectrum Analyzer GUI.exe
+D:\Repos\OpenLRS\trunk\src\Spectrum_Analyzer_GUI\Spectrum_Analyzer_GUI\Spectrum Analizer GUI\obj\Debug\Spectrum Analyzer GUI.pdb
