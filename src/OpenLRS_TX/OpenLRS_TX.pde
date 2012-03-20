@@ -39,18 +39,22 @@
 
 
 void setup() {   
+       
+        //LED and other interfaces
+        pinMode(Red_LED, OUTPUT); //RED LED
+        pinMode(Green_LED, OUTPUT); //GREEN LED
+        pinMode(BUZZER, OUTPUT); //Buzzer
+        pinMode(BTN, INPUT); //Buton
+        
+        //EEPROM check and update
+        eeprom_check(); //uncomment this line for changing the frequency/hopping channels/deviceID and other important varibles by PC software
+        
         //RF module pins
         pinMode(SDO_pin, INPUT); //SDO
         pinMode(SDI_pin, OUTPUT); //SDI        
 	pinMode(SCLK_pin, OUTPUT); //SCLK
         pinMode(IRQ_pin, INPUT); //IRQ
         pinMode(nSel_pin, OUTPUT); //nSEL
-        
-        //LED and other interfaces
-        pinMode(Red_LED, OUTPUT); //RED LED
-        pinMode(Green_LED, OUTPUT); //GREEN LED
-        pinMode(BUZZER, OUTPUT); //Buzzer
-        pinMode(BTN, INPUT); //Buton
         
            
         pinMode(PPM_IN, INPUT); //PPM from TX 
@@ -90,7 +94,7 @@ if (PPM_Signal_Edge_Check) // Only works with rising edge of the signal
 		    {
 			time_temp = TCNT1; // read the timer1 value
                         TCNT1 = 0; // reset the timer1 value for next
-			if (channel_no<14) channel_no++; 
+			if (channel_no<19) channel_no++; 
                         
 					
 			if (time_temp > 8000) // new frame detection : >4ms LOW
@@ -181,7 +185,7 @@ while(1)
                  {
                   Red_LED_ON;  
                   send_read_address(0x7f); // Send the package read command
-		  for(i = 0; i<17; i++) //read all buffer 
+		  for(i = 0; i<RF_PACK_SIZE; i++) //read all buffer 
 			{ 
 			 RF_Rx_Buffer[i] = read_8bit_data(); 
 			}  
@@ -199,9 +203,9 @@ while(1)
                          else
                          digitalWrite(BUZZER, LOW);
                       #if (TELEMETRY_OUTPUT_ENABLED==1)
-                        for(i = 0; i<16; i++) //write serial
+                        for(i = 0; i<RF_PACK_SIZE; i++) //write serial
                            Serial.print(RF_Rx_Buffer[i]);
-                        Serial.println(int(RF_Rx_Buffer[16]));
+                        Serial.println();
                       #endif                  
                    #endif
                    
@@ -248,7 +252,7 @@ while(1)
                           if (total_rx_byte>0)
                               {
                                RF_Tx_Buffer[0] = 'B';
-                               if (total_rx_byte>15) total_rx_byte = 15; // Limit the package size as 15 byte
+                               if (total_rx_byte>RF_PACK_SIZE-2) total_rx_byte = RF_PACK_SIZE-2; // Limit the package size as RF_PACK_SIZE-2 = (38) byte
                                RF_Tx_Buffer[1]= total_rx_byte;
                                for (byte i=0;i<total_rx_byte;i++)
                                     RF_Tx_Buffer[2+i] = Serial.read();
@@ -259,7 +263,7 @@ while(1)
                       {
                       //"S" header for Servo Channel data
                       RF_Tx_Buffer[0] = 'S';
-		      for(i = 0; i<8; i++) // fill the rf-tx buffer with 8 channel (2x8 byte) servo signal
+		      for(i = 0; i<RC_CHANNEL_COUNT; i++) // fill the rf-tx buffer with 18 channel (2x18 byte) servo signal
 		          {
                           RF_Tx_Buffer[(i*2)+1] = Servo_Buffer[i+1] / 256;
                           RF_Tx_Buffer[(i*2)+2] = Servo_Buffer[i+1] % 256;
@@ -307,7 +311,7 @@ while(1)
                       #if (DEBUG_MODE == 1)
                          if (time%100 < 10)
                          {
-                           for(i = 0; i<8; i++) // fill the rf-tx buffer with 8 channel (2x8 byte) servo signal
+                           for(i = 0; i<RC_CHANNEL_COUNT; i++) // fill the rf-tx buffer with 8 channel (2x8 byte) servo signal
 		             {
                              Serial.print(int( (Servo_Buffer[(2*i)]*256) + Servo_Buffer[1+(2*i)]));
                              Serial.print(' ');

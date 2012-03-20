@@ -54,7 +54,7 @@ void setup() {
         pinMode(RED_LED_pin, OUTPUT);
         
         //EEPROM check and update
-        eeprom_check();
+        eeprom_check(); //uncomment this line for changing the frequency/hopping channels/deviceID and other important varibles by PC software
         
         //RF module pins
         pinMode(SDO_pin, INPUT); //SDO
@@ -313,7 +313,7 @@ void loop() {
                                  
 				 send_read_address(0x7f); // Send the package read command
 				 
-				 for(i = 0; i<17; i++) //read all buffer 
+				 for(i = 0; i<RF_PACK_SIZE; i++) //read all buffer 
 						{ 
 						 RF_Rx_Buffer[i] = read_8bit_data(); 
 						}  
@@ -321,7 +321,7 @@ void loop() {
 				 
 				 if (RF_Rx_Buffer[0] == 'S') // servo control data
 						{
-                                                 for(i = 0; i<8; i++) //Write into the Servo Buffer
+                                                 for(i = 0; i<RC_CHANNEL_COUNT; i++) //Write into the Servo Buffer
                                                         {                                                          
                                                          temp_int = (256*RF_Rx_Buffer[1+(2*i)]) + RF_Rx_Buffer[2+(2*i)];
                                                          if ((temp_int>1500) && (temp_int<4500)) Servo_Buffer[i] = temp_int; 
@@ -354,7 +354,7 @@ void loop() {
 						 {
 						 tx_data_length = RF_Rx_Buffer[1]; // length of RS232 data
 						 for(i = 0; i<tx_data_length; i++)
-						    RS232_Tx_Buffer[i+1] = RF_Rx_Buffer[i+2]; // fill the RS232 buffer						 
+						    RS232_Tx_Buffer[i] = RF_Rx_Buffer[i+2]; // fill the RS232 buffer						 
 						 }
 						 
 				 #if (TELEMETRY_MODE == 0)  // Transparent Bridge Telemetry mode                

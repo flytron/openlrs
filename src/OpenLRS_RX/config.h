@@ -43,8 +43,8 @@ static unsigned char hop_list[3] = {13,54,23};
 static unsigned char RF_Header[4] = {'O','L','R','S'};  
 
 //###### SERIAL PORT SPEED #######
-//#define SERIAL_BAUD_RATE 115200 //115.200 baud serial port speed
-#define SERIAL_BAUD_RATE 9600 //115.200 baud serial port speed
+#define SERIAL_BAUD_RATE 115200 //115.200 baud serial port speed
+//#define SERIAL_BAUD_RATE 9600 //115.200 baud serial port speed
 
 //###### SERIAL PPM Type #######
 // Plug a jumper between Ch1 and CH3 for switching your Rx to SerialPPM mode
@@ -107,12 +107,14 @@ static unsigned char RF_Header[4] = {'O','L','R','S'};
 #define Gyro_Pitch_Gain 5
 #define Gyro_Yaw_Gain 5
 
+#define RF_PACK_SIZE 40
+#define RC_CHANNEL_COUNT 18
 
-unsigned char RF_Rx_Buffer[17];
-unsigned char RF_Tx_Buffer[17]; 
-unsigned char RS232_Tx_Buffer[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};	//rs232 tx buffer
-unsigned int Servo_Buffer[10] = {3000,3000,3000,3000,3000,3000,3000,3000};	//servo position values from RF
-unsigned int Servo_Position[10] = {3000,3000,3000,3000,3000,3000,3000,3000};	//real servo position values
+unsigned char RF_Rx_Buffer[RF_PACK_SIZE];
+unsigned char RF_Tx_Buffer[RF_PACK_SIZE]; 
+unsigned char RS232_Tx_Buffer[RF_PACK_SIZE] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};	//rs232 tx buffer
+unsigned int Servo_Buffer[RC_CHANNEL_COUNT] = {3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000};	//servo position values from RF
+unsigned int Servo_Position[RC_CHANNEL_COUNT] = {3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000,3000};	//real servo position values
 static unsigned char Servo_Number = 0;
 unsigned int total_ppm_time=0;
 unsigned short Rx_RSSI,vbat = 0;

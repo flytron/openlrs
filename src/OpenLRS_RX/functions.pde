@@ -140,7 +140,7 @@ void Direct_Servo_Drive(void)
     Servo_Position[AUX2] = Servo_Buffer[AUX2];  
     
     #if (DEBUG_MODE == 1)
-           if ((Servo_Position[2]<2350) || (Servo_Position[2]>2360)) Serial.println(int(Servo_Position[2]));
+           Serial.println(int(Servo_Buffer[9]));
     #endif  
     }
     

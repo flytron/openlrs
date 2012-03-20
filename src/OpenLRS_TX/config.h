@@ -33,7 +33,10 @@
 #define DEBUG_MODE 0
 
 //######### TRANSMISSION VARIABLES ##########
-#define CARRIER_FREQUENCY 435000  // 435Mhz startup frequency
+unsigned long CARRIER_FREQUENCY = 435000;  // 435Mhz startup frequency
+
+unsigned char HOPPING_STEP_SIZE = 6;// 60kHz hopping steps
+
 #define FREQUENCY_HOPPING 1 // 1 = Enabled  0 = Disabled
 
 //###### HOPPING CHANNELS #######
@@ -63,8 +66,8 @@ static unsigned char RF_Header[4] = {'O','L','R','S'};
 
 
 //###### TELEMETRY MODES ########
-#define TELEMETRY_ENABLED 1  // 1 = Enabled(bidirectional mode)  0 = Disabled(unidirectional mode)
-#define TELEMETRY_MODE 2 // 0 = Transparent Bridge(750 byte/second max) // 1 = Standard OpenLRS Telemetry // 2 = WarBird Mode (buzzer only)
+#define TELEMETRY_ENABLED 0  // 1 = Enabled(bidirectional mode)  0 = Disabled(unidirectional mode)
+#define TELEMETRY_MODE 0 // 0 = Transparent Bridge(750 byte/second max) // 1 = Standard OpenLRS Telemetry // 2 = WarBird Mode (buzzer only)
 #define TELEMETRY_OUTPUT_ENABLED 0 // 1 = Enabled  0 = Disabled  //Enables the Serial Telemetry Data Output. If you need only Buzzer alerts, disable it for less processing time.
 
 //###### RANGE ALERTS #######
@@ -80,14 +83,15 @@ static unsigned char RF_Header[4] = {'O','L','R','S'};
 
 //############ VARIABLES ########################
 
+#define RF_PACK_SIZE 40
+#define RC_CHANNEL_COUNT 18
 
-unsigned char RF_Rx_Buffer[17];
-unsigned char RF_Tx_Buffer[17]; 
+unsigned char RF_Rx_Buffer[RF_PACK_SIZE];
+unsigned char RF_Tx_Buffer[RF_PACK_SIZE]; 
+
 unsigned char Telemetry_Buffer[8];
 
-
-//volatile unsigned char Servo_Buffer[30];	//servo positions
-volatile unsigned int Servo_Buffer[20];	//servo positions
+volatile unsigned int Servo_Buffer[RC_CHANNEL_COUNT];	//servo positions
 
 volatile unsigned char channel_no=0;
 volatile unsigned int transmitted=1;

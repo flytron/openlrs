@@ -175,7 +175,7 @@ void RF22B_init_parameter(void)
  _spi_write(0x3b, RF_Header[1]); 
  _spi_write(0x3c, RF_Header[2]); 
  _spi_write(0x3d, RF_Header[3]); 
- _spi_write(0x3e, 17);    // total tx 17 byte 
+ _spi_write(0x3e, RF_PACK_SIZE);    // total tx  byte 
  
   
   
@@ -329,9 +329,9 @@ void to_tx_mode(void)
   
     // ph +fifo mode 
   _spi_write(0x34, 7);     // 64 nibble = 32byte preamble 
-  _spi_write(0x3e, 17);    // total tx 17 byte 
+  _spi_write(0x3e, RF_PACK_SIZE);    // total tx byte 
 
- for (i = 0; i<17; i++)
+ for (i = 0; i<RF_PACK_SIZE; i++)
  { 
   _spi_write(0x7f, RF_Tx_Buffer[i]); 
  } 
@@ -370,18 +370,10 @@ void to_sleep_mode(void)
   
 void frequency_configurator(long frequency){
   
-    // frequency formulation from Si4432 chip's datasheet
+  // frequency formulation from Si4432 chip's datasheet
   // original formulation is working with mHz values and floating numbers, I replaced them with kHz values.
   
-  unsigned int frequency_constant = 19000;//default 430-440Mhz
-  
-  if ((frequency>=400000) && (frequency<410000))  frequency_constant = 16; // 16 for 400–409.9 MHz band from datasheet
-  if ((frequency>=410000) && (frequency<420000))  frequency_constant = 17; // 17 for 410–419.9 MHz band from datasheet
-  if ((frequency>=420000) && (frequency<430000))  frequency_constant = 18; // 18 for 420–429.9 MHz band from datasheet
-  if ((frequency>=430000) && (frequency<440000))  frequency_constant = 19; // 19 for 430–439.9 MHz band from datasheet
-  if ((frequency>=440000) && (frequency<450000))  frequency_constant = 20; // 20 for 440–449.9 MHz band from datasheet
-  if ((frequency>=450000) && (frequency<460000))  frequency_constant = 21; // 21 for 450–459.9 MHz band from datasheet
-  if ((frequency>=460000) && (frequency<470000))  frequency_constant = 22; // 22 for 460–469.9 MHz band from datasheet
+  unsigned int frequency_constant = (frequency/10000) - 24; // result is 19 for 430-439.990 Mhz
 
   frequency = frequency / 10;
   frequency = frequency - 24000;

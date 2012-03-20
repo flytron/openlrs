@@ -175,7 +175,7 @@ void RF22B_init_parameter(void)
  _spi_write(0x3b, RF_Header[1]); 
  _spi_write(0x3c, RF_Header[2]); 
  _spi_write(0x3d, RF_Header[3]); 
- _spi_write(0x3e, 17);    // total tx 17 byte 
+ _spi_write(0x3e, RF_PACK_SIZE);    // total tx 17 byte 
  
   
   
@@ -193,7 +193,7 @@ void RF22B_init_parameter(void)
   
   _spi_write(0x6d, 0x07); // 7 set power max power 
   _spi_write(0x79, 0x00);    // no hopping 
-  _spi_write(0x7a, 0x06);    // 60khz step size (10khz x value) // no hopping 
+  _spi_write(0x7a, HOPPING_STEP_SIZE);    // 60khz step size (10khz x value) // no hopping 
 
   _spi_write(0x71, 0x23); // Gfsk, fd[8] =0, no invert for Tx/Rx data, fifo mode, txclk -->gpio 
   //_spi_write(0x72, 0x1F); // frequency deviation setting to 19.6khz (for 38.4kbps)
@@ -329,9 +329,9 @@ void to_tx_mode(void)
   
     // ph +fifo mode 
   _spi_write(0x34, 7);     // 64 nibble = 32byte preamble 
-  _spi_write(0x3e, 17);    // total tx 17 byte 
+  _spi_write(0x3e, RF_PACK_SIZE);    // total tx 17 byte 
 
- for (i = 0; i<17; i++)
+ for (i = 0; i<RF_PACK_SIZE; i++)
  { 
   _spi_write(0x7f, RF_Tx_Buffer[i]); 
  } 
@@ -366,18 +366,26 @@ void to_sleep_mode(void)
 } 
 //--------------------------------------------------------------   
   
+  
 void frequency_configurator(long frequency){
-
+  
   // frequency formulation from Si4432 chip's datasheet
   // original formulation is working with mHz values and floating numbers, I replaced them with kHz values.
+  
+  unsigned int frequency_constant = (frequency/10000) - 24; // result is 19 for 430-439.990 Mhz
+
   frequency = frequency / 10;
   frequency = frequency - 24000;
-  frequency = frequency - 19000; // 19 for 430–439.9 MHz band from datasheet
+  
+  frequency =  frequency - (frequency_constant*1000);  
+  
   frequency = frequency * 64; // this is the Nominal Carrier Frequency (fc) value for register setting
   
+   
   byte byte0 = (byte) frequency;
   byte byte1 = (byte) (frequency >> 8);
   
+  _spi_write(0x75, 0x40 + frequency_constant);
   _spi_write(0x76, byte1);    
   _spi_write(0x77, byte0); 
 
