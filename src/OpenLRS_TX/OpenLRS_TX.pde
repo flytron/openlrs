@@ -5,7 +5,7 @@
 // **       This Source code licensed under GPL            **
 // **********************************************************
 // Version Number     : 1.12
-// Latest Code Update : 2012-02-14
+// Latest Code Update : 2012-03-21
 // Supported Hardware : OpenLRS Tx boards (M1 & M2) (store.flytron.com)
 // Project Forum      : http://forum.flytron.com/viewforum.php?f=7
 // Google Code Page   : http://code.google.com/p/openlrs/
@@ -30,7 +30,7 @@
 // 6- If you release the button after first short beep, your Tx will work on 17dbm mode, you can use your tx with our 7W booster on this mode.
 // 7- If you release the button after third short beep, your Tx will work on 1dbm mode, it is minimum output power of your Tx for range test. The range must be arround 40-100 meter in this mode.
 // 8- you will hear another long beep after release the button, this mean the configuration done. 
-// 9- If you want to turn back to default 20dbm mode, just trun off your tx and on again. 
+// 9- If you want to turn back to default 20dbm mode, just turn off your tx and on again. 
 
 #include "config.h"
 
@@ -47,7 +47,9 @@ void setup() {
         pinMode(BTN, INPUT); //Buton
         
         //EEPROM check and update
-        eeprom_check(); //uncomment this line for changing the frequency/hopping channels/deviceID and other important varibles by PC software
+        #if (PC_CONFIGURATION_ENABLED==1)
+        eeprom_check(); 
+        #endif
         
         //RF module pins
         pinMode(SDO_pin, INPUT); //SDO
@@ -278,6 +280,12 @@ while(1)
                       #if (TELEMETRY_MODE == 2) // WARBIRD Mode , gun sound
                       if (Servo_Buffer[7]>3000) digitalWrite(BUZZER, HIGH);                      
                       #endif 
+                      
+                      if (digitalRead(BTN)==0) // Check the button for setting failsafe values
+                      {
+                      RF_Tx_Buffer[0] = 'C'; // Internal Commands
+                      RF_Tx_Buffer[1] = 'F'; // Internal Commands
+                      }
 
                       // Send the data over RF
     		      to_tx_mode();

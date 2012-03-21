@@ -3,11 +3,12 @@
 // **       This Source code licensed under GPL             **
 // ***********************************************************
 // Version Number     : 1.12
-// Latest Code Update : 2012-02-14
+// Latest Code Update : 2012-03-21
 // Supported Hardware : OpenLRS Tx boards (M1 & M2) (store.flytron.com)
 // Project Forum      : http://forum.flytron.com/viewforum.php?f=7
 // Google Code Page   : http://code.google.com/p/openlrs/
 // **********************************************************
+
 
 //####### TX BOARD TYPE #######
 //We have 2 option for OpenLRS TX, You can use original TX modules or just load the Tx firmware into the RX
@@ -16,6 +17,9 @@
 // 2 = Original M2 Tx Board
 // 3 = OpenLRS Rx v2 Board works as TX, reads your PPM signals from first servo port.
 #define TX_BOARD_TYPE 2
+
+//####### PC BASED CONFIGURATOR #######
+#define PC_CONFIGURATION_ENABLED 1 // 1 = Enabled  0 = Disabled
 
 //####### BOOSTER SELECTION ######
 // RA07M4047M Booster IC accepts maximum 50mW input. We are reducing the transmitter's output from 100mW to 50mW when booster connected. 
@@ -33,8 +37,12 @@
 #define DEBUG_MODE 0
 
 //######### TRANSMISSION VARIABLES ##########
-unsigned long CARRIER_FREQUENCY = 435000;  // 435Mhz startup frequency
+//!!! These values configurable over PC with OpenLRS Configurator Software
+//If you are using older than v1.12 firmware, load the new firmware first, 
+//then open the configurator software when FTDı cable connected. 
+//And press Set Dafaults button for configuring your device EEPROM
 
+unsigned long CARRIER_FREQUENCY = 435000;  // 435Mhz startup frequency
 unsigned char HOPPING_STEP_SIZE = 6;// 60kHz hopping steps
 
 #define FREQUENCY_HOPPING 1 // 1 = Enabled  0 = Disabled

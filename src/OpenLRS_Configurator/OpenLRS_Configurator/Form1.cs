@@ -30,11 +30,12 @@ namespace OpenLRS_Configurator
 
            Freq_calculate();
 
-           Logbox.AppendText("###########Reading STARTED###########" + "\r\n");
+           /*
+            Logbox.AppendText("###########Reading STARTED###########" + "\r\n");
            for (uint i = 0; i < 100; i++)
                Logbox.AppendText(i + ":" +conf_buffer[i] + "\r\n");
            Logbox.AppendText("###########Reading DONE###########" + "\r\n");
-
+           */
        }
 
        private void Freq_calculate()
@@ -55,6 +56,61 @@ namespace OpenLRS_Configurator
            hoplist3.SelectedIndex = conf_buffer[5];
        }
 
+    private void load_defaults()
+    {
+        conf_buffer[3] = 13;
+            conf_buffer[4] = 54;
+            conf_buffer[5] = 23;
+            frequency_box.Text = "435000";
+            stepsize.SelectedIndex = 6;
+            rf_header.Text = "OLRS";
+            telemetry.SelectedIndex = 0;
+            Freq_calculate();
+    }
+
+    private void write_values()
+    {
+        //channels
+        conf_buffer[0] = (byte)((Int32.Parse(frequency_box.Text) - 400000) / 256);
+        conf_buffer[1] = (byte)((Int32.Parse(frequency_box.Text) - 400000) % 256);
+        conf_buffer[2] = (byte)stepsize.SelectedIndex;
+        //hopping
+        conf_buffer[3] = (byte)hoplist1.SelectedIndex;
+        conf_buffer[4] = (byte)hoplist2.SelectedIndex;
+        conf_buffer[5] = (byte)hoplist3.SelectedIndex;
+
+        //RF Header
+        conf_buffer[6] = (byte)rf_header.Text[0];
+        conf_buffer[7] = (byte)rf_header.Text[1];
+        conf_buffer[8] = (byte)rf_header.Text[2];
+        conf_buffer[9] = (byte)rf_header.Text[3];
+
+        //telemetry
+        conf_buffer[11] = (byte)telemetry.SelectedIndex;
+
+        for (uint i = 100; i < 250; i++)
+            conf_buffer[i] = 0;
+
+
+        if (serialPort1.IsOpen == false)
+        {
+            serialPort1.PortName = PortNames.Text;
+            serialPort1.Open();
+            serialPort1.Encoding = System.Text.Encoding.GetEncoding(28591); //ISO 8859-1.
+        }
+        serialPort1.DtrEnable = true;
+        System.Threading.Thread.Sleep(10);
+        serialPort1.DtrEnable = false;
+        System.Threading.Thread.Sleep(10);
+
+        write_counter = 0;
+        writing = -1;
+        button1.Enabled = false;
+        button2.Enabled = false;
+        button3.Enabled = false;
+        
+    }
+
         public Form1()
         {
             InitializeComponent();
@@ -73,15 +129,12 @@ namespace OpenLRS_Configurator
             serialPort1.DtrEnable = false;
             System.Threading.Thread.Sleep(10);
 
-            Logbox.Clear();
+            //Logbox.Clear();
             read_counter = 0;
             reading = -1;
             button1.Enabled = false;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            button2.Enabled = false;
+            button3.Enabled = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -119,6 +172,7 @@ namespace OpenLRS_Configurator
                 PortNames.Items.Add(s);
             }
             if (PortNames.Items.Count>0) PortNames.SelectedIndex = 0;
+            load_defaults();
  
         }
 
@@ -146,6 +200,8 @@ namespace OpenLRS_Configurator
                     {
                         Write_to_Fields();
                         button1.Enabled = true;
+                        button2.Enabled = true;
+                        button3.Enabled = true;
                     });
                     }
                     catch (Exception ex)
@@ -187,12 +243,17 @@ namespace OpenLRS_Configurator
                         try
                         {
                         Invoke((MethodInvoker)delegate()
-                        { 
-                            button2.Enabled = true; });
+                        {
+                            button1.Enabled = true; 
+                            button2.Enabled = true;
+                            button3.Enabled = true;
+                        });
+                            /*
                             Logbox.AppendText("###########Writing STARTED###########" + "\r\n");
                             for (uint i = 0; i < 100; i++)
                             Logbox.AppendText(i + ":" + conf_buffer[i] + "\r\n");
                             Logbox.AppendText("###########Writing DONE###########" + "\r\n");
+                             */
                         }
                         catch (Exception ex)
                         {
@@ -228,64 +289,9 @@ namespace OpenLRS_Configurator
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //channels
-            conf_buffer[0] = (byte)((Int32.Parse(frequency_box.Text) - 400000) / 256);
-            conf_buffer[1] = (byte)((Int32.Parse(frequency_box.Text) - 400000) % 256);
-            conf_buffer[2] = (byte)stepsize.SelectedIndex;
-            //hopping
-            conf_buffer[3] = (byte)hoplist1.SelectedIndex;
-            conf_buffer[4] = (byte)hoplist2.SelectedIndex;
-            conf_buffer[5] = (byte)hoplist3.SelectedIndex;
-
-            //RF Header
-            conf_buffer[6] = (byte)rf_header.Text[0];
-            conf_buffer[7] = (byte)rf_header.Text[1];
-            conf_buffer[8] = (byte)rf_header.Text[2];
-            conf_buffer[9] = (byte)rf_header.Text[3];
-
-            //telemetry
-            conf_buffer[11] = (byte)telemetry.SelectedIndex;
-
-            for (uint i = 100; i < 250; i++)
-                conf_buffer[i] = 0;
-
-
-            if (serialPort1.IsOpen == false)
-            {
-                serialPort1.PortName = PortNames.Text;
-                serialPort1.Open();
-                serialPort1.Encoding = System.Text.Encoding.GetEncoding(28591); //ISO 8859-1.
-            }
-            serialPort1.DtrEnable = true;
-            System.Threading.Thread.Sleep(10);
-            serialPort1.DtrEnable = false;
-            System.Threading.Thread.Sleep(10);
-
-            write_counter = 0;
-            writing = -1;
-            button2.Enabled = false;
+            write_values();
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if (serialPort1.IsOpen == false)
-            {
-                serialPort1.PortName = PortNames.Text;
-                serialPort1.Open();
-                serialPort1.Encoding = System.Text.Encoding.GetEncoding(28591); //ISO 8859-1.
-            }
-            serialPort1.DtrEnable = true;
-            System.Threading.Thread.Sleep(10);
-            serialPort1.DtrEnable = false;
-            System.Threading.Thread.Sleep(10);
-            serialPort1.Close();
-        }
 
 
 
@@ -294,19 +300,16 @@ namespace OpenLRS_Configurator
             Freq_calculate();
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            load_defaults();
+            write_values();
         }
 
-        private void label6_Click(object sender, EventArgs e)
+        private void frequency_box_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
+            if (frequency_box.Text.Length == 6) Freq_calculate();
         }
 
         

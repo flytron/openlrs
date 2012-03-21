@@ -3,7 +3,7 @@
 // **        Developed by Melih Karakelle on 2010-2012     **
 // **          This Source code licensed under GPL         **
 // **********************************************************
-// Latest Code Update : 2012-03-09
+// Latest Code Update : 2012-03-21
 // Supported Hardware : OpenLRS Rx-Tx boards (store.flytron.com)
 // Project Forum      : http://forum.flytron.com/viewforum.php?f=7
 // Google Code Page   : http://code.google.com/p/openlrs/

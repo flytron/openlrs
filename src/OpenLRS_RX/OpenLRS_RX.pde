@@ -4,8 +4,8 @@
 // **  an Arudino based RC Rx/Tx system with extra futures **
 // **       This Source code licensed under GPL            **
 // **********************************************************
-// Version Number     : 1.10
-// Latest Code Update : 2011-10-04
+// Version Number     : 1.12
+// Latest Code Update : 2012-03-21
 // Supported Hardware : OpenLRS Rx boards (store.flytron.com)
 // Project Forum      : http://forum.flytron.com/viewforum.php?f=7
 // Google Code Page   : http://code.google.com/p/openlrs/
@@ -54,7 +54,10 @@ void setup() {
         pinMode(RED_LED_pin, OUTPUT);
         
         //EEPROM check and update
-        eeprom_check(); //uncomment this line for changing the frequency/hopping channels/deviceID and other important varibles by PC software
+        #if (PC_CONFIGURATION_ENABLED==1)
+        eeprom_check(); 
+        #endif
+        
         
         //RF module pins
         pinMode(SDO_pin, INPUT); //SDO
@@ -330,7 +333,9 @@ void loop() {
 
                                                   //Serial.println( Servo_Buffer[1]);
 						 
-						 if (first_data==3) // save failsafe
+						 /*
+                                                  //Old failsafe code, now its working over Tx button 
+                                                 if (first_data==3) // save failsafe
 						        {
 							 save_failsafe_values(); 
 							 first_data = 1;
@@ -348,8 +353,19 @@ void loop() {
 								}							
 							
 							}
+                                                 */
+                                                 
+
 						}
-						 
+                                               
+                                 if (RF_Rx_Buffer[0] == 'C') // Internal Commands
+						 {
+						 if (RF_Rx_Buffer[1] == 'F') //Set Failsafe
+                                                    {
+                                                      save_failsafe_values(); 
+                                                    }					 
+						 }				
+		 
 				 if (RF_Rx_Buffer[0] == 'T') // RS232 Tx data received
 						 {
 						 tx_data_length = RF_Rx_Buffer[1]; // length of RS232 data
