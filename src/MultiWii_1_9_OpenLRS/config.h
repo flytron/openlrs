@@ -156,7 +156,10 @@
 //#define SPEKTRUM 1024
 //#define SPEKTRUM 2048
 
-#define OpenLRS 1
+//OpenLRS is an opensource RC Receiver and Transmitter system with including hundreds features.
+//OpenLRS v2 Rx and Multi boards almost compatible with MultiWii project. 
+//You can load this firmware into the OpenLRS receiver to convert your receiver to the multicopter controller.
+#define OpenLRS
 
 /* EXPERIMENTAL !!
    contribution from Captain IxI and Zaggo
