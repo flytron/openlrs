@@ -412,20 +412,19 @@ void computeRC() {
 //Select the hopping channels between 0-255
 // Default values are 13,54 and 23 for all transmitters and receivers, you should change it before your first flight for safety.
 //Frequency = CARRIER_FREQUENCY + (StepSize(60khz)* Channel_Number) 
-static unsigned char hop_list[3] = {13,54,23}; 
+static uint8_t hop_list[3] = {13,54,23}; 
 
 //###### RF DEVICE ID HEADERS #######
 // Change this 4 byte values for isolating your transmission, RF module accepts only data with same header
-static unsigned char RF_Header[4] = {'O','L','R','S'};  
+static uint8_t RF_Header[4] = {'O','L','R','S'};  
      
 //########## Variables #################
-unsigned long time;
-unsigned long last_pack_time ;
-unsigned long last_hopping_time;
-unsigned char RF_Rx_Buffer[17];
-unsigned int temp_int;
-unsigned int Servo_Buffer[10] = {3000,3000,3000,3000,3000,3000,3000,3000};	//servo position values from RF
-static unsigned char hopping_channel = 1;
+
+static uint32_t last_hopping_time;
+static uint8_t RF_Rx_Buffer[17];
+static uint16_t temp_int;
+static uint16_t Servo_Buffer[10] = {3000,3000,3000,3000,3000,3000,3000,3000};	//servo position values from RF
+static uint8_t hopping_channel = 1;
 
 void initOpenLRS(void)
 {
@@ -456,17 +455,15 @@ void Config_OpenLRS(){
 //############ MAIN LOOP ##############
 void Read_OpenLRS_RC(){
   
-  unsigned char i,tx_data_length;
-  unsigned char first_data = 0;
-
-  time = millis();
+  uint8_t i,tx_data_length;
+  uint8_t first_data = 0;
  
   if (_spi_read(0x0C)==0) {RF22B_init_parameter(); to_rx_mode(); }// detect the locked module and reboot			 
 			
-  if ((time-last_hopping_time > 25))//automatic hopping for clear channel when rf link down for 25ms.	
+  if ((currentTime-last_hopping_time > 25000))//automatic hopping for clear channel when rf link down for 25ms.	
       {
        Red_LED_ON;
-       last_hopping_time = time;  
+       last_hopping_time = currentTime;  
       
        #if (FREQUENCY_HOPPING==1)
          Hopping(); //Hop to the next frequency
@@ -506,7 +503,7 @@ void Read_OpenLRS_RC(){
                                  Hopping(); //Hop to the next frequency
                                 #endif  
                                 delay(1);              
-                                last_hopping_time = time;    
+                                last_hopping_time = currentTime;    
                                 Red_LED_OFF;
  			        }
  Red_LED_OFF;
@@ -546,9 +543,9 @@ void Write1( void )
     NOP(); 
 } 
 //-------------------------------------------------------------- 
-void Write8bitcommand(unsigned char command)    // keep sel to low 
+void Write8bitcommand(uint8_t command)    // keep sel to low 
 { 
- unsigned char n=8; 
+    uint8_t n=8; 
     nSEL_on;
     SCK_off;
     nSEL_off; 
@@ -565,9 +562,9 @@ void Write8bitcommand(unsigned char command)    // keep sel to low
 
 
 //-------------------------------------------------------------- 
-unsigned char _spi_read(unsigned char address) 
+uint8_t _spi_read(uint8_t address) 
 { 
- unsigned char result; 
+ uint8_t result; 
  send_read_address(address); 
  result = read_8bit_data();  
  nSEL_on; 
@@ -575,7 +572,7 @@ unsigned char _spi_read(unsigned char address)
 }  
 
 //-------------------------------------------------------------- 
-void _spi_write(unsigned char address, unsigned char data) 
+void _spi_write(uint8_t address, uint8_t data) 
 { 
  address |= 0x80; 
  Write8bitcommand(address); 
@@ -656,16 +653,16 @@ void RF22B_init_parameter(void)
 }
 
 //-------------------------------------------------------------- 
-void send_read_address(unsigned char i) 
+void send_read_address(uint8_t i) 
 { 
  i &= 0x7f; 
   
  Write8bitcommand(i); 
 }  
 //-------------------------------------------------------------- 
-void send_8bit_data(unsigned char i) 
+void send_8bit_data(uint8_t i) 
 { 
-  unsigned char n = 8; 
+  uint8_t n = 8; 
   SCK_off;
     while(n--) 
     { 
@@ -679,9 +676,9 @@ void send_8bit_data(unsigned char i)
 }  
 //-------------------------------------------------------------- 
 
-unsigned char read_8bit_data(void) 
+uint8_t read_8bit_data(void) 
 { 
-  unsigned char Result, i; 
+ uint8_t Result, i; 
   
  SCK_off;
  Result=0; 
@@ -745,7 +742,7 @@ void to_sleep_mode(void)
 } 
 //--------------------------------------------------------------   
   
-void frequency_configurator(long frequency){
+void frequency_configurator(uint32_t frequency){
 
   // frequency formulation from Si4432 chip's datasheet
   // original formulation is working with mHz values and floating numbers, I replaced them with kHz values.
@@ -754,8 +751,8 @@ void frequency_configurator(long frequency){
   frequency = frequency - 19000; // 19 for 430–439.9 MHz band from datasheet
   frequency = frequency * 64; // this is the Nominal Carrier Frequency (fc) value for register setting
   
-  byte byte0 = (byte) frequency;
-  byte byte1 = (byte) (frequency >> 8);
+  uint8_t byte0 = (uint8_t) frequency;
+  uint8_t byte1 = (uint8_t) (frequency >> 8);
   
   _spi_write(0x76, byte1);    
   _spi_write(0x77, byte0); 
