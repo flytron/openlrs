@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Media;
 
 namespace OpenLRS_Configurator
 {
@@ -173,7 +174,7 @@ namespace OpenLRS_Configurator
             }
             if (PortNames.Items.Count>0) PortNames.SelectedIndex = 0;
             load_defaults();
- 
+            
         }
 
         private void PortNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -202,6 +203,9 @@ namespace OpenLRS_Configurator
                         button1.Enabled = true;
                         button2.Enabled = true;
                         button3.Enabled = true;
+
+                        SoundPlayer simpleSound = new SoundPlayer(@"c:\Windows\Media\chimes.wav");
+                        simpleSound.Play();
                     });
                     }
                     catch (Exception ex)
@@ -247,6 +251,9 @@ namespace OpenLRS_Configurator
                             button1.Enabled = true; 
                             button2.Enabled = true;
                             button3.Enabled = true;
+
+                            SoundPlayer simpleSound = new SoundPlayer(@"c:\Windows\Media\chimes.wav");
+                            simpleSound.Play();
                         });
                             /*
                             Logbox.AppendText("###########Writing STARTED###########" + "\r\n");
