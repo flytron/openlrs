@@ -29,8 +29,8 @@
 #define YAW_DIRECTION 1 // if you want to reverse the yaw correction direction
 //#define YAW_DIRECTION -1
 
-#define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
-//#define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
+//#define I2C_SPEED 100000L     //100kHz normal mode, this value must be used for a genuine WMP
+#define I2C_SPEED 400000L   //400kHz fast mode, it works only with some WMP clones
 
 //enable internal I2C pull ups
 #define INTERNAL_I2C_PULLUPS
@@ -75,7 +75,7 @@
    including some navigation functions
    contribution from EOSBandi
    http://code.google.com/p/i2c-gps-nav/ */
-//#define I2C_GPS
+#define I2C_GPS
 
 /* GPS data readed from Misio-OSD  ( EXPERIMENTAL )
    If we have Misio-OSD with GPS module connected to OSD we can use this GPS for navigation purpose. 
@@ -153,12 +153,13 @@
 //#define LSM303DLx_ACC
 
 /* I2C barometer */
-//#define BMP085
+#define BMP085
 //#define MS561101BA
 
 /* I2C magnetometer */
 //#define HMC5843
-//#define HMC5883
+#define HMC5883
+#define MAG_ORIENTATION(X, Y, Z)  {magADC[ROLL]  =  X; magADC[PITCH]  =  -Y; magADC[YAW]  = Z;}
 //#define AK8975
 //#define MAG3110
 

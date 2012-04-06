@@ -94,28 +94,13 @@ byte btn_mode = 0;
             }
            
           }     
-        
-    //Random channel experimental code
-    //Check the button again. If it is already pressed start the binding proscedure    
-    //if (digitalRead(BTN)==0) // Binding Mode
-    //    {
-    //    randomSeed(analogRead(7)); //use empty analog pin as random value seeder.
-    //    loop_time = millis(); // count the button pressed time for extra randomization
-        
-    //    digitalWrite(BUZZER,HIGH); //100ms single beep for binding mode.
-    //    delay(100);
-    //    digitalWrite(BUZZER,LOW);
-        
-    //    while((digitalRead(BTN)==0) ) {}; // wait for button release
-        
-        //Here is the code for binding. 
-    //    time = millis();
-    //    Binding_Mode(time-loop_time);  
-      
-    //    }    
+
+
+    if (btn_mode == 0) //If you release the button when you hearing first long beep 
+        Power_Set(6); //set the booster output power +17dbm
     
-    if (btn_mode == 1) Power_Set(6); //set the booster output power +17dbm
-    if (btn_mode == 3) Power_Set(0); //set the minimum output power +1dbm  for range test 
+    if (btn_mode == 3) //If you release the button when you hearing 3th short beep 
+        Power_Set(0); //set the minimum output power +1dbm  for range test 
         
     delay(500); 
     digitalWrite(BUZZER,HIGH);
